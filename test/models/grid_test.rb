@@ -6,13 +6,13 @@ class GridTest < ActiveSupport::TestCase
   test "generates random letters before validation" do
     grid = Grid.create
 
-    refute_equal grid.letters, nil, "random letters should be selected for each new grid"
+    refute_equal nil, grid.letters, "random letters should be selected for each new grid"
   end
 
   test "it accepts letters argument" do
     grid = Grid.new letters: "hah"
 
-    assert_equal grid.letters, "hah"
+    assert_equal "hah", grid.letters
   end
 
   test "validates squareness" do
@@ -31,6 +31,6 @@ class GridTest < ActiveSupport::TestCase
 
     array = grid.send :as_two_dimensional_array
 
-    assert_equal array, [["C","A"],["A","T"]]
+    assert_equal [["C","A"],["A","T"]], array
   end
 end
