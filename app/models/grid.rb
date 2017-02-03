@@ -7,6 +7,8 @@ class Grid
   field :letters, type: String
   field :grid, type: Array, default: []
 
+  has_many :decorated_grid, dependent: :destroy
+
   validate :letters_represent_square
   before_validation :generate_grid
 
