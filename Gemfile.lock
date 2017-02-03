@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/anthonygood/boggle-solver
+  revision: 3a56bcc63250fdfa6524893d255f1c6511bc47d2
+  specs:
+    boggle-solver (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -126,6 +132,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  boggle-solver!
   bson_ext
   byebug
   database_cleaner

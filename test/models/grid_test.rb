@@ -1,9 +1,18 @@
 require 'test_helper'
 
 class GridTest < ActiveSupport::TestCase
-  test "has letters attribute" do
-    grid = Grid.new
-    assert grid.letters == nil
+  @letters = "ABCDEFGHI"
+
+  test "generates random letters before validation" do
+    grid = Grid.create
+
+    refute_equal grid.letters, nil, "random letters should be selected for each new grid"
+  end
+
+  test "it accepts letters argument" do
+    grid = Grid.new letters: "hah"
+
+    assert_equal grid.letters, "hah"
   end
 
   test "validates squareness" do
@@ -15,5 +24,13 @@ class GridTest < ActiveSupport::TestCase
 
     grid.letters = "1234567890123456"
     assert grid.save
+  end
+
+  test "#as_grid" do
+    grid = Grid.new letters: "CAAT"
+
+    array = grid.send :as_two_dimensional_array
+
+    assert_equal array, [["C","A"],["A","T"]]
   end
 end
