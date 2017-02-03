@@ -15,4 +15,8 @@ class DecoratedGrid
       end
     end
   end
+
+  def multipliers_at(x,y)
+    multipliers.where(x: x, y: y).first
+  end
 end

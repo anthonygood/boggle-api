@@ -6,8 +6,8 @@ class Multiplier
 
   embedded_in :decorated_grid
 
-  field :row_index, type: Integer
-  field :letter_index, type: Integer
+  field :y, type: Integer # row index
+  field :x, type: Integer # column index
 
   field :value, type: Integer, default: 2
   field :acts_upon, type: Symbol, default: :letter
