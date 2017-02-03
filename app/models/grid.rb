@@ -10,7 +10,7 @@ class Grid
   has_many :decorated_grid, dependent: :destroy
 
   validate :letters_represent_square
-  before_validation :generate_grid
+  before_validation :generate_grid, :downcase_letters
 
   def generate_grid
     self.letters = letters || Boggle::LetterPicker.pick_letters(GRID_SIZE)
@@ -37,5 +37,9 @@ class Grid
 
   def letters_as_rows
     letters.scan /\w{#{sqrt}}/
+  end
+
+  def downcase_letters
+    letters.downcase!
   end
 end

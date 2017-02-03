@@ -27,10 +27,10 @@ class GridTest < ActiveSupport::TestCase
   end
 
   test "#as_grid" do
-    grid = Grid.new letters: "CAAT"
+    grid = Grid.create letters: "CAAT"
 
     array = grid.send :as_two_dimensional_array
 
-    assert_equal [["C","A"],["A","T"]], array
+    assert_equal [["c","a"],["a","t"]], array
   end
 end
