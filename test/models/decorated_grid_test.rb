@@ -2,12 +2,26 @@ require "test_helper"
 
 class DecoratedGridTest < ActiveSupport::TestCase
   setup do
-    @grid = Grid.create letters: "HAAH"
+    @grid = Grid.create letters: "HAAH", words: [{word:"ha"}] # Supply dummy words
+                                                              # to avoid solving
     @decorated = DecoratedGrid.create grid: @grid
   end
 
   test "belongs_to grid" do
     assert_equal @grid, @decorated.grid
+  end
+
+  test "requires grid" do
+    unrelated_grid = DecoratedGrid.new
+    refute unrelated_grid.save, "decorated grid depends on grid"
+  end
+
+  test "cannot belong to unsolved grid" do
+    grid = Grid.create letters: "BOOH"
+
+    decorated = DecoratedGrid.new grid: grid
+
+    refute decorated.save, "decorated grid shouldn't belong to an unsolved grid"
   end
 
   test "is dependent: destroy upon grid" do
@@ -26,7 +40,7 @@ class DecoratedGridTest < ActiveSupport::TestCase
 
   class AsTwoDimensionalArray < ActiveSupport::TestCase
     setup do
-      @grid = Grid.create letters: "ABCD"
+      @grid = Grid.create letters: "ABCD", words: []
       @decorated = DecoratedGrid.create grid: @grid
     end
 

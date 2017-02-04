@@ -33,4 +33,20 @@ class GridTest < ActiveSupport::TestCase
 
     assert_equal [["c","a"],["a","t"]], array
   end
+
+  test "#words" do
+    # Skip solving the grid
+    Boggle::Solver.stub :find_words!, [[{hello: true}],[{goodbye: true}]] do
+
+      grid = Grid.create letters: "CAAT"
+      assert_nil grid.words, "by default, grids are unsolved"
+
+      grid.solve!
+      grid.reload
+
+      solution = grid.words
+
+      assert_equal 2, solution.length
+    end
+  end
 end

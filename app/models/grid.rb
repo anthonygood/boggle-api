@@ -2,9 +2,15 @@
 class Grid
   include Mongoid::Document
 
+  class CannotSolveGridError < StandardError; end
+
   GRID_SIZE = 16
 
   field :letters, type: String
+
+  # Words array is populated by #solve!
+  # TODO: This is (a bit) expensive, so should be a background job?
+  field :words, type: Array
   field :grid, type: Array, default: []
 
   has_many :decorated_grid, dependent: :destroy
@@ -14,6 +20,13 @@ class Grid
 
   def generate_grid
     self.letters = letters || Boggle::LetterPicker.pick_letters(GRID_SIZE)
+  end
+
+  def solve!
+    raise CannotSolveGridError, "Grids should be saved before solving" if new_record?
+
+    self.words = Boggle::Solver.find_words!(letters).to_a
+    save!
   end
 
   private
