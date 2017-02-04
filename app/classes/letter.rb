@@ -14,8 +14,12 @@
 # and therefore has X/Y values of {x: 0, y: 1}.
 #
 class Letter
-  def initialize(letter, x, y)
-    @letter, @x, @y = letter, x, y
+  def initialize(letter:, x:, y:, letter_multiplier:1, word_multiplier:1)
+    @letter = letter
+    @letter_multiplier = letter_multiplier || 1 # override nils
+    @word_multiplier   = word_multiplier   || 1
+    @x = x
+    @y = y
   end
 
   def as_json
@@ -23,15 +27,17 @@ class Letter
       letter: @letter,
       x: @x,
       y: @y,
-      value: 1,
-      multiplier: 1
+      base_value: base_value,
+      value: value,
+      letter_multiplier: @letter_multiplier,
+      word_multiplier: @word_multiplier
     }
   end
 
   private
 
-  def value
-    case letter
+  def base_value
+    case @letter
     when "d", "g"
       2
     when "b", "c", "m", "p"
@@ -47,5 +53,9 @@ class Letter
     else
       1
     end
+  end
+
+  def value
+    base_value * @letter_multiplier
   end
 end

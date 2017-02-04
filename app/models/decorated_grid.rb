@@ -11,12 +11,14 @@ class DecoratedGrid
   def as_two_dimensional_array
     grid.as_two_dimensional_array.each_with_index.map do |row, y|
       row.each_with_index.map do |letter, x|
-        Letter.new(letter, x, y).as_json
+        Letter.new(
+          letter: letter,
+          x: x,
+          y: y,
+          letter_multiplier: multipliers.letter.indices(x,y).first&.value,
+          word_multiplier: multipliers.word.indices(x,y).first&.value
+        ).as_json
       end
     end
-  end
-
-  def multipliers_at(x,y)
-    multipliers.where(x: x, y: y).first
   end
 end

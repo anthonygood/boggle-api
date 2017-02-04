@@ -14,6 +14,10 @@ class Multiplier
 
   validate :correct_acted_upon
 
+  scope :letter, -> { where(acts_upon: :letter) }
+  scope :word, -> { where(acts_upon: :word) }
+  scope :indices, ->(x,y) { where(x: x, y: y) }
+
   private
 
   def correct_acted_upon
