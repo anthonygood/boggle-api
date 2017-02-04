@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/anthonygood/boggle-solver
-  revision: 3a56bcc63250fdfa6524893d255f1c6511bc47d2
+  revision: 8867f2ac27f55b039da9ac8149081b36196a8c48
   specs:
     boggle-solver (1.0.0)
 
