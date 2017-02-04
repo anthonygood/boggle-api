@@ -14,12 +14,18 @@
 # and therefore has X/Y values of {x: 0, y: 1}.
 #
 class Letter
+  attr_accessor :word_multiplier
+
   def initialize(letter:, x:, y:, letter_multiplier:1, word_multiplier:1)
     @letter = letter
     @letter_multiplier = letter_multiplier || 1 # override nils
     @word_multiplier   = word_multiplier   || 1
     @x = x
     @y = y
+  end
+
+  def value
+    base_value * @letter_multiplier
   end
 
   def as_json
@@ -53,9 +59,5 @@ class Letter
     else
       1
     end
-  end
-
-  def value
-    base_value * @letter_multiplier
   end
 end

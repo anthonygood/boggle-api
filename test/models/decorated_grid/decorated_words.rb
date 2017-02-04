@@ -14,13 +14,13 @@ class DecoratedGrid::DecoratedWords < ActiveSupport::TestCase
   end
 
   test "it decorates all the solved words on parent grid" do
-    decorated_words = @decorated.words
+    words = @decorated.words
     assert_equal(
       [
         {word: "ha", indices: [[0, 0], [0, 1]], value: 5},
-        {word: "hah", indices: [[0, 0], [0, 1], [1, 1]], value: 11}
+        {word: "hah", indices: [[0, 0], [0, 1], [1, 1]], value: 9}
       ],
-      @decorated.words
+      words
     )
   end
 end

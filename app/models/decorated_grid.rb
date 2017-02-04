@@ -12,7 +12,7 @@ class DecoratedGrid
   validate :grid_is_solved
 
   def as_two_dimensional_array
-    grid.as_two_dimensional_array.each_with_index.map do |row, y|
+    @as_two_dimensional_array ||= grid.as_two_dimensional_array.each_with_index.map do |row, y|
       row.each_with_index.map do |letter, x|
         Letter.new(
           letter: letter,
@@ -20,8 +20,36 @@ class DecoratedGrid
           y: y,
           letter_multiplier: multipliers.letter.indices(x,y).first&.value,
           word_multiplier: multipliers.word.indices(x,y).first&.value
-        ).as_json
+        )
       end
+    end
+  end
+
+  # Return the words from parent grid, decorated with score
+  def words
+    # We're going to map each word to the decorated grid,
+    # in order to evaluate their scores.
+    grid.words.map do |word|
+      # Word looks something like:
+      # { word: "ha",  indices: [[0, 0], [0, 1]] }
+
+      word_multiplier = 1
+
+      word.merge(
+        score: word[:indices].reduce(0) do |word_value, index|
+          y, x = index
+
+          this_letter = self.as_two_dimensional_array[y][x]
+
+          # Is there a bigger word multiplier?
+          if this_letter.word_multiplier > word_multiplier
+            word_multiplier = this_letter.word_multiplier
+          end
+
+          # Return the value of the decorated letter at this index
+          word_value += this_letter.value
+        end
+      )
     end
   end
 
