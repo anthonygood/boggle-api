@@ -35,7 +35,7 @@ class GridTest < ActiveSupport::TestCase
   end
 
   test "#words" do
-    # Skip solving the grid
+    # Skip solving the grid.
     Boggle::Solver.stub :find_words!, [[{hello: true}],[{goodbye: true}]] do
 
       grid = Grid.create letters: "CAAT"

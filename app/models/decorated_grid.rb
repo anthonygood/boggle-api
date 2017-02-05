@@ -11,6 +11,7 @@ class DecoratedGrid
   validates_presence_of :grid_id
   validate :grid_is_solved
 
+  # TODO: refactor decorating logic into GridDecorator class.
   def as_two_dimensional_array
     @as_two_dimensional_array ||= grid.as_two_dimensional_array.each_with_index.map do |row, y|
       row.each_with_index.map do |letter, x|
@@ -25,7 +26,7 @@ class DecoratedGrid
     end
   end
 
-  # Return the words from parent grid, decorated with score
+  # Return the words from parent grid, decorated with score.
   def words
     grid.words.map {|word| decorate_word(word) }
   end
@@ -38,6 +39,7 @@ class DecoratedGrid
     end
   end
 
+  # TODO: refactor decorating logic into GridDecorator class.
   def decorate_word(word)
     word_multiplier = 1
 
@@ -54,7 +56,7 @@ class DecoratedGrid
         word_multiplier = this_letter.word_multiplier
       end
 
-      # Return the value of the decorated letter at this index
+      # Return the value of the decorated letter at this index.
       word_value += this_letter.value
     end
 
