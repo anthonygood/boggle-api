@@ -27,6 +27,8 @@ gem 'puma', '~> 3.0'
 
 gem "boggle-solver", git: "https://github.com/anthonygood/boggle-solver"
 
+gem "active_model_serializers"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

@@ -26,6 +26,8 @@ class DecoratedGrid
     end
   end
 
+  alias :as_json :as_two_dimensional_array
+
   # Return the words from parent grid, decorated with score.
   def words
     grid.words.map {|word| decorate_word(word) }

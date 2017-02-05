@@ -6,6 +6,11 @@ require 'minitest/autorun' # for stubs
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.start
 
+class ActionDispatch::IntegrationTest
+  def json_response
+    JSON.parse @response.body
+  end
+end
 
 class ActiveSupport::TestCase
   teardown do

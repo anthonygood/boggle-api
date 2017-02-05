@@ -3,3 +3,4 @@
 #
 
 CreateAndSolveBaseGridsJob.perform_now 100
+DecorateGridsJob.perform_now
