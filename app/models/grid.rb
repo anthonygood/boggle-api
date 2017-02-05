@@ -14,7 +14,7 @@ class Grid
   field :words_count, type: Integer
   field :grid, type: Array, default: []
 
-  has_many :decorated_grid, dependent: :destroy
+  has_many :decorated_grids, dependent: :destroy
 
   validate :letters_represent_square
   before_validation :generate_grid, :downcase_letters
