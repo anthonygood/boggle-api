@@ -27,30 +27,7 @@ class DecoratedGrid
 
   # Return the words from parent grid, decorated with score
   def words
-    # We're going to map each word to the decorated grid,
-    # in order to evaluate their scores.
-    grid.words.map do |word|
-      # Word looks something like:
-      # { word: "ha",  indices: [[0, 0], [0, 1]] }
-
-      word_multiplier = 1
-
-      word.merge(
-        score: word[:indices].reduce(0) do |word_value, index|
-          y, x = index
-
-          this_letter = self.as_two_dimensional_array[y][x]
-
-          # Is there a bigger word multiplier?
-          if this_letter.word_multiplier > word_multiplier
-            word_multiplier = this_letter.word_multiplier
-          end
-
-          # Return the value of the decorated letter at this index
-          word_value += this_letter.value
-        end
-      )
-    end
+    grid.words.map {|word| decorate_word(word) }
   end
 
   private
@@ -59,5 +36,32 @@ class DecoratedGrid
     unless grid && grid.words
       errors.add :grid, "must be solved before any decorated grids can be derived."
     end
+  end
+
+  def decorate_word(word)
+    word_multiplier = 1
+
+    # Word looks something like:
+    # { word: "ha",  indices: [[0, 0], [0, 1]] }
+    # Return the word's score, while also checking for any word multipliers.
+    score = word[:indices].reduce(0) do |word_value, index|
+      y, x = index
+
+      this_letter = self.as_two_dimensional_array[y][x]
+
+      # Is there a bigger word multiplier?
+      if this_letter.word_multiplier > word_multiplier
+        word_multiplier = this_letter.word_multiplier
+      end
+
+      # Return the value of the decorated letter at this index
+      word_value += this_letter.value
+    end
+
+    word.merge(
+      base_score: score,
+      multiplier: word_multiplier,
+      score: score * word_multiplier
+    )
   end
 end
