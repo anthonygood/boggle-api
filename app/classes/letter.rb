@@ -30,7 +30,8 @@ class Letter
 
   def as_json
     {
-      letter: @letter,
+      letter: display_letter,
+      _id: "#{@x}#{@y}",
       x: @x,
       y: @y,
       base_value: base_value,
@@ -38,6 +39,10 @@ class Letter
       letter_multiplier: @letter_multiplier,
       word_multiplier: @word_multiplier
     }
+  end
+
+  def display_letter
+    @letter == "q" ? "Qu" : @letter.upcase
   end
 
   private
@@ -54,7 +59,7 @@ class Letter
       5
     when "j", "x"
       8
-    when "qu", "z"
+    when "q", "z"
       10
     else
       1

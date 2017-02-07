@@ -12,7 +12,6 @@ class Grid
   # TODO: This is (a bit) expensive, so should be a background job?
   field :words, type: Array
   field :words_count, type: Integer
-  field :grid, type: Array, default: []
 
   has_many :decorated_grids, dependent: :destroy
 
