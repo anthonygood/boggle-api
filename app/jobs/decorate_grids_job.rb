@@ -15,7 +15,6 @@ class DecorateGridsJob < ApplicationJob
       end
 
       if multipliers.any?
-        # Do something.
         multipliers.each {|multiplier| apply multiplier, decorated_grid }
       end
     end

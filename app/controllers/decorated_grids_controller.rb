@@ -2,10 +2,7 @@ class DecoratedGridsController < ApplicationController
 
   # GET /grid
   def index
-    random = DecoratedGrid.collection.aggregate([
-      :$sample => { size: 1 }
-    ]).first
-
+    random = DecoratedGrid.collection.aggregate([:$sample => { size: 1 }]).first
     random = DecoratedGrid.find random["_id"]
 
     render json: random, serializer: DecoratedGridSerializer

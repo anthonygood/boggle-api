@@ -9,7 +9,7 @@ class Grid
   field :letters, type: String
 
   # Words array is populated by #solve!
-  # TODO: This is (a bit) expensive, so should be a background job?
+  # TODO: This is expensive, so should be a background job?
   field :words, type: Array
   field :words_count, type: Integer
 
