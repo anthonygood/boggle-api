@@ -5,7 +5,6 @@ class DecorateGridsJob < ApplicationJob
   # Pass an array of multipliers like so:
   # DecorateGridsJob.perform_later [{acts_upon: :word, value: 3},{acts_upon: :letter, value: 5}]
   def perform(multipliers=[])
-    # Do something later
     Grid.each do |grid|
 
       # We don't want to plain-decorate (ie. decorate without any multipliers) more than once,

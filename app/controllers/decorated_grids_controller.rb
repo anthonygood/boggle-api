@@ -12,8 +12,6 @@ class DecoratedGridsController < ApplicationController
   def show
     grid = DecoratedGrid.find(params[:id])
 
-    byebug
-
     render json: grid, serializer: DecoratedGridSerializer
   end
 end

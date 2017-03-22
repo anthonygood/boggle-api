@@ -3,7 +3,7 @@ class CreateAndSolveBaseGridsJob < ApplicationJob
 
   # This job creates (and solves!) as many base grids as requested.
   # NOTE: it's desirable to subsequently destroy any grids which
-  # have too few possibly words (> 250 at least, > 300 ideal).
+  # have too few possible words (> 250 at least, > 300 ideal).
   def perform(count)
     count.times do
       g = Grid.create!
