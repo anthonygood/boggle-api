@@ -13,6 +13,8 @@ class ActionDispatch::IntegrationTest
 end
 
 class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+
   teardown do
     DatabaseCleaner.clean
   end
