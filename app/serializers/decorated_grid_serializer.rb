@@ -1,4 +1,5 @@
 class DecoratedGridSerializer < ActiveModel::Serializer
+  attribute(:id)
   attribute(:board)       { object.as_two_dimensional_array }
   attribute(:paths_count) { object.words.count }
   attribute(:word_count)  { dictionary.count }

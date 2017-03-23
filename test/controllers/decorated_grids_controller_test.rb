@@ -2,8 +2,7 @@ require "test_helper"
 
 class DecoratedGridsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @grid = Grid.create! words: [{hello: true},{goodbye: true}]
-    @decorated = @grid.decorated_grids.create!
+    @decorated = create :decorated_grid
   end
 
   test "is successful" do
@@ -15,17 +14,8 @@ class DecoratedGridsControllerTest < ActionDispatch::IntegrationTest
   test "index should supply random decorated grid by default" do
     get "/grid"
 
-    assert_equal @decorated.as_json, json_response
-  end
+    json_id = json_response["id"]["$oid"]
 
-  test "show should return specified grid" do
-    other_grid = Grid.create! words: [{hello: true}]
-    decorated  = other_grid.decorated_grids.create!
-
-    get "/grid/", params: {id: decorated.id}
-
-    puts json_response
-
-    assert_equal decorated.as_json, json_response
+    assert_equal json_id, @decorated.id.to_s
   end
 end

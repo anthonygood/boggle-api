@@ -48,7 +48,7 @@ class DecoratedGrid
     # Word looks something like:
     # { word: "ha",  indices: [[0, 0], [0, 1]] }
     # Return the word's score, while also checking for any word multipliers.
-    score = word[:indices].reduce(0) do |word_value, index|
+    score = word["indices"].reduce(0) do |word_value, index|
       y, x = index
 
       this_letter = self.as_two_dimensional_array[y][x]

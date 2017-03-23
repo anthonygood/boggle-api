@@ -2,7 +2,7 @@ require "test_helper"
 
 class AsTwoDimensionalArray < ActiveSupport::TestCase
   setup do
-    @grid = Grid.create letters: "ABCD", words: []
+    @grid = Grid.create letters: "abcd", words: []
     @decorated = DecoratedGrid.create grid: @grid
   end
 
@@ -10,7 +10,7 @@ class AsTwoDimensionalArray < ActiveSupport::TestCase
     letter = @decorated.as_two_dimensional_array[1][0].as_json
 
     assert_equal(
-      {letter: "c", x: 0, y: 1, base_value: 3, value: 3, letter_multiplier: 1, word_multiplier: 1},
+      {letter: "C", _id: "01", x: 0, y: 1, base_value: 3, value: 3, letter_multiplier: 1, word_multiplier: 1},
       letter
     )
   end
@@ -25,12 +25,12 @@ class AsTwoDimensionalArray < ActiveSupport::TestCase
     array = @decorated.as_two_dimensional_array
 
     assert_equal(
-      {letter: "d", x: 1, y: 1, base_value: 2, value: 6, letter_multiplier: 3, word_multiplier: 1},
+      {letter: "D", _id: "11", x: 1, y: 1, base_value: 2, value: 6, letter_multiplier: 3, word_multiplier: 1},
       array[1][1].as_json
     )
 
     assert_equal(
-      {letter: "b", x: 1, y: 0, base_value: 3, value: 3, letter_multiplier: 1, word_multiplier: 5},
+      {letter: "B", _id: "10", x: 1, y: 0, base_value: 3, value: 3, letter_multiplier: 1, word_multiplier: 5},
       array[0][1].as_json
     )
   end
